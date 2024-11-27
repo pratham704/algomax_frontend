@@ -9,6 +9,8 @@ import OrganizerAddEvent from "../pages/app/organizer/AddEvent";
 import SidebarOrganizer from "../components/Sidebar/SidebarOrganizer";
 import GetMyEvents from "../pages/app/organizer/MyEvents/GetMyEvents";
 import SingleEvent from "../pages/app/organizer/MyEvents/SingleEvent";
+import OrganizerAnalytics from "../pages/app/organizer/OrganizerAnalytics";
+import OrganizerDashboard from "../pages/app/organizer/OrganizerDashboard";
 const PublicRoutes = () => {
   return (
     <div>
@@ -67,6 +69,28 @@ const PublicRoutes = () => {
               </>
             }
           />
+
+          <Route
+            exact
+            path="/organizer/analytics"
+            element={ 
+              <>
+              <SidebarOrganizer />
+              <OrganizerAnalytics />
+              
+              </>
+
+
+            }
+          />
+
+
+          <Route exact path="/organizer/dashboard" element={
+            <>
+            <SidebarOrganizer />
+            <OrganizerDashboard />
+            </>
+          } />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
