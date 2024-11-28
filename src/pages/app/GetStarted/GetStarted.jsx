@@ -60,7 +60,7 @@ const GetStarted = () => {
             if (role === "organizer") {
               navigate("/organizer/dashboard");
             } else if (role === "user") {
-              navigate("/user");
+              navigate("/user/dashboard");
             }
           }, 2000); // 2000ms = 2 seconds
         }

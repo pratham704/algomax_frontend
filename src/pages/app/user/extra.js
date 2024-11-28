@@ -27,31 +27,13 @@ const AddEvent = () => {
 
   const categories = [
     'Concert',
-    'Music', 
+    'Music',
     'Technology',
     'Food',
     'Sports',
     'Art',
     'Business',
     'Education'
-  ];
-
-  const cities = [
-    'Mumbai',
-    'Delhi',
-    'Bangalore',
-    'Hyderabad',
-    'Chennai',
-    'Kolkata',
-    'Pune',
-    'Ahmedabad',
-    'Jaipur',
-    'Lucknow',
-    'Chandigarh',
-    'Kochi',
-    'Indore',
-    'Bhopal',
-    'Nagpur'
   ];
 
   const handleChange = (e) => {
@@ -185,22 +167,17 @@ const AddEvent = () => {
                 <MapPin className="mr-3 h-5 w-5 text-purple-400" />
                 Location
               </label>
-              <motion.select
+              <motion.input
                 variants={inputVariants}
                 whileFocus="focus"
+                type="text"
                 name="location"
                 value={eventData.location}
                 onChange={handleChange}
                 className="w-full bg-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-lg px-5 py-4 focus:ring-2 focus:ring-purple-500 transition-all duration-300 placeholder-gray-500 shadow-lg"
+                placeholder="Where is your event happening?"
                 required
-              >
-                <option value="">Select a city</option>
-                {cities.map((city) => (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
-                ))}
-              </motion.select>
+              />
             </div>
           </motion.div>
 
