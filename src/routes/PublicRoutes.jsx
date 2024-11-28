@@ -11,6 +11,13 @@ import GetMyEvents from "../pages/app/organizer/MyEvents/GetMyEvents";
 import SingleEvent from "../pages/app/organizer/MyEvents/SingleEvent";
 import OrganizerAnalytics from "../pages/app/organizer/OrganizerAnalytics";
 import OrganizerDashboard from "../pages/app/organizer/OrganizerDashboard";
+
+// user routes
+// import LoginUser from "../pages/app/auth/userAuth/LoginUser";
+import RegisterUser from "../pages/app/auth/userAuth/RegisterUser";
+import LoginUser from "../pages/app/auth/userAuth/LoginUser";
+import UserDashboard from "../pages/app/user/UserDashboard";
+
 const PublicRoutes = () => {
   return (
     <div>
@@ -93,6 +100,15 @@ const PublicRoutes = () => {
           } />
 
           <Route path="*" element={<NotFound />} />
+
+
+          {/* user routes */}
+          <Route exact path="/user/login" element={<LoginUser />} />
+          <Route exact path="/user/register" element={<RegisterUser />} />
+          <Route exact path="/user/dashboard" element={<UserDashboard />} />
+          
+
+
         </Routes>
       </BrowserRouter>
     </div>

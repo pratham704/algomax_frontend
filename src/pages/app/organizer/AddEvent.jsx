@@ -25,6 +25,17 @@ const AddEvent = () => {
   const [uploading, setUploading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const categories = [
+    'Concert',
+    'Music',
+    'Technology',
+    'Food',
+    'Sports',
+    'Art',
+    'Business',
+    'Education'
+  ];
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEventData(prev => ({ ...prev, [name]: value }));
@@ -275,17 +286,22 @@ const AddEvent = () => {
                 <Tag className="mr-3 h-5 w-5 text-purple-400" />
                 Category
               </label>
-              <motion.input
+              <motion.select
                 variants={inputVariants}
                 whileFocus="focus"
-                type="text"
                 name="category"
                 value={eventData.category}
                 onChange={handleChange}
                 className="w-full bg-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-lg px-5 py-4 focus:ring-2 focus:ring-purple-500 transition-all duration-300 placeholder-gray-500 shadow-lg"
-                placeholder="e.g. Music, Tech, Food..."
                 required
-              />
+              >
+                <option value="">Select a category</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </motion.select>
             </div>
           </motion.div>
 

@@ -21,9 +21,54 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { baseUrl } from "../../../api/baseUrl";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const GetStarted = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    let toastTriggered = false; // Flag to prevent duplicate toasts
+  
+    useEffect(() => {
+      checkUser();
+    }, []);
+  
+    const checkUser = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        if (!accessToken) return;
+  
+        const response = await axios.get(`${baseUrl}/checkUser`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+  
+        if (response.data.success && !toastTriggered) {
+          toastTriggered = true; // Prevent duplicate toasts
+          const { role } = response.data.data;
+          toast.success("Welcome back!", {
+            duration: 3000,
+            style: {
+              background: "#333",
+              color: "#fff",
+            },
+          });
+  
+          setTimeout(() => {
+            if (role === "organizer") {
+              navigate("/organizer/dashboard");
+            } else if (role === "user") {
+              navigate("/user");
+            }
+          }, 2000); // 2000ms = 2 seconds
+        }
+      } catch (error) {
+        console.error("Error checking user:", error);
+      }
+    };
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <div className="max-w-7xl mx-auto px-4 py-16">
@@ -67,7 +112,7 @@ const GetStarted = () => {
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
-              onClick={() => navigate("/user/all-events")}
+              onClick={() => navigate("/user/register")}
               className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg inline-flex items-center group"
             >
               Browse Events
