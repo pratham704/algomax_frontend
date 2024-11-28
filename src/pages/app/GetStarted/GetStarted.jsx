@@ -95,6 +95,30 @@ const GetStarted = () => {
         <div className="grid md:grid-cols-2 gap-8">
           {/* Organizer Section */}
 
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-8 hover:bg-gray-800 transition-all duration-300 border border-gray-700 hover:border-blue-500/50 shadow-xl hover:shadow-blue-500/20"
+            onClick={() => navigate("/organizer/login")}
+          >
+            <div className="flex items-center space-x-4 mb-6">
+              <Calendar className="w-12 h-12 text-blue-400" />
+              <Trophy className="w-8 h-8 text-yellow-400" />
+            </div>
+            <h2 className="text-2xl font-bold mb-4">Organize Events</h2>
+            <p className="text-gray-400 mb-6">
+              Create and manage your events with powerful tools and analytics
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg inline-flex items-center group"
+            >
+              Get Started
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </motion.div>
+
           {/* User Section */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
@@ -120,29 +144,7 @@ const GetStarted = () => {
             </motion.button>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-8 hover:bg-gray-800 transition-all duration-300 border border-gray-700 hover:border-blue-500/50 shadow-xl hover:shadow-blue-500/20"
-            onClick={() => navigate("/organizer/login")}
-          >
-            <div className="flex items-center space-x-4 mb-6">
-              <Calendar className="w-12 h-12 text-blue-400" />
-              <Trophy className="w-8 h-8 text-yellow-400" />
-            </div>
-            <h2 className="text-2xl font-bold mb-4">Organize Events</h2>
-            <p className="text-gray-400 mb-6">
-              Create and manage your events with powerful tools and analytics
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg inline-flex items-center group"
-            >
-              Get Started
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
-          </motion.div>
+         
         </div>
 
         {/* Features Section */}

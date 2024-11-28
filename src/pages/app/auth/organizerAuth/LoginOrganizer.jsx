@@ -38,7 +38,7 @@ const LoginOrganizer = () => {
       if (response.ok) {
         toast.success('Login successful!');
         localStorage.setItem('accessToken', data.data.token);
-        nav('/organizer/dashboard');
+        window.location.href = "/";
       } else {
         if (response.status === 404) {
           toast.error('Account not found. Please register first.');

@@ -60,7 +60,8 @@ const SidebarOrganizer = () => {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     setShowLogoutModal(false);
-    navigate("/");
+
+    window.location.href = "/";
   };
 
   const handleNavigation = (path) => {

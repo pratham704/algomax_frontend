@@ -44,7 +44,7 @@ const RegisterUser = () => {
           }
         });
         localStorage.setItem('accessToken', data.data.token);
-        nav('/user/dashboard');
+        window.location.href = "/";
       } else {
         if (response.status === 400) {
           toast.error('Account already exists. Please login instead.', {

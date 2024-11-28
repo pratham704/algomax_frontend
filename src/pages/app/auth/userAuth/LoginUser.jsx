@@ -53,7 +53,7 @@ export default function LoginUser() {
         });
         localStorage.setItem('accessToken', data.data.token);
         localStorage.setItem('userProfile', JSON.stringify(userData));
-        nav('/user/dashboard');
+        window.location.href = "/";
       } else {
         throw new Error(data.message || 'Login failed');
       }

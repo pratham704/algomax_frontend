@@ -6,8 +6,10 @@ import { Calendar, Clock, MapPin, Ticket, Music, Tag, DollarSign, Lock, Shield, 
 import { motion } from 'framer-motion';
 import { toast } from 'react-hot-toast';
 import { load } from '@cashfreepayments/cashfree-js';
+import { useNavigate } from 'react-router-dom';
 
 const Payment = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -134,6 +136,7 @@ const Payment = () => {
             if (response.status === 200 || response.status === 201) {
                 setBookingSuccess(true);
                 toast.success('Tickets booked successfully!');
+                navigate('/user/my-tickets');
             }
         } catch (error) {
             console.error(error);

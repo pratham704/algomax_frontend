@@ -15,6 +15,8 @@ import {
   Settings,
   Star,
 } from "lucide-react";
+import { useSetRecoilState } from 'recoil';
+import { authState } from '../../atoms/authAtom';
 
 const menuItems = [
   {
@@ -55,6 +57,7 @@ const menuItems = [
 ];
 
 const SidebarUser = () => {
+  const setAuthState = useSetRecoilState(authState);
   const [isOpen, setIsOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const navigate = useNavigate();
@@ -63,7 +66,7 @@ const SidebarUser = () => {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     setShowLogoutModal(false);
-    navigate("/");
+    window.location.href = "/";
   };
 
   const handleNavigation = (path) => {

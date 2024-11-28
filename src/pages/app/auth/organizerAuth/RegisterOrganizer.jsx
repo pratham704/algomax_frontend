@@ -40,8 +40,7 @@ const RegisterOrganizer = () => {
       if (response.ok) {
         toast.success('Registration successful!');
         localStorage.setItem('accessToken', data.data.token);
-
-        nav('/organizer/dashboard');
+        window.location.href = "/";
       } else {
         if (response.status === 400) {
           toast.error('Account already exists. Please login instead.');
