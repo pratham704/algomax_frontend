@@ -160,7 +160,7 @@ const EventCard = ({ event, onClick }) => (
           </div>
           <div className="flex items-center text-gray-300">
             <Star className="w-4 h-4 mr-2 text-yellow-500" />
-            <span>{event.available_tickets} left</span>
+            <span>{Math.max(0, event.available_tickets)} left</span>
           </div>
         </div>
       </div>

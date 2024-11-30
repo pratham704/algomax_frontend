@@ -114,21 +114,33 @@ const EventModal = ({ event, onClose }) => {
                     <Ticket className="w-5 h-5 inline mr-2 text-purple-500" />
                     Available Tickets
                   </div>
-                  <div className="text-white font-semibold">{event.available_tickets}</div>
+                  <div className="text-white font-semibold">{Math.max(0, event.available_tickets)}</div>
                 </div>
               </motion.div>
   
-              <motion.button 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 px-6 rounded-xl transition duration-300 shadow-lg hover:shadow-purple-500/25"
-                onClick={() => navigate(`/user/payment/${event.id}`)}
-              >
-                Book Tickets
-              </motion.button>
+              {event.available_tickets > 0 ? (
+                <motion.button 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 px-6 rounded-xl transition duration-300 shadow-lg hover:shadow-purple-500/25"
+                  onClick={() => navigate(`/user/payment/${event.id}`)}
+                >
+                  Book Tickets
+                </motion.button>
+              ) : (
+                <motion.button 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="w-full bg-gray-700 text-gray-400 cursor-not-allowed py-3 px-6 rounded-xl"
+                  disabled
+                >
+                  Event Full
+                </motion.button>
+              )}
             </div>
           </div>
         </motion.div>
