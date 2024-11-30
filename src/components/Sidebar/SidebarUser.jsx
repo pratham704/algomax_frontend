@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { useSetRecoilState } from 'recoil';
 import { authState } from '../../atoms/authAtom';
+import { auth } from "../../config/firebaseConfig";
+import { signOut } from "firebase/auth";
 
 const menuItems = [
   {
@@ -63,8 +65,9 @@ const SidebarUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem("accessToken");
+    await signOut(auth);
     setShowLogoutModal(false);
     window.location.href = "/";
   };

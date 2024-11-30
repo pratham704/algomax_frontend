@@ -13,6 +13,8 @@ import {
   BarChart3,
   Settings,
 } from "lucide-react";
+import { auth } from "../../config/firebaseConfig";
+import { signOut } from "firebase/auth";
 
 const menuItems = [
   {
@@ -57,11 +59,15 @@ const SidebarOrganizer = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    setShowLogoutModal(false);
-
-    window.location.href = "/";
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem("accessToken");
+      setShowLogoutModal(false);
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
   };
 
   const handleNavigation = (path) => {

@@ -193,6 +193,8 @@ const PublicRoutes = () => {
           </>
         )}
 
+        {/* settings routes */}
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
