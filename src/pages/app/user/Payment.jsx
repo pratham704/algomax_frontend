@@ -75,6 +75,11 @@ const Payment = () => {
 
     const handlePayment = async () => {
         try {
+            if (event.available_tickets <= 0) {
+                toast.error('Sorry, this event is sold out!');
+                return;
+            }
+
             if (!cashfree) {
                 toast.error('Payment system not initialized. Please try again.');
                 return;
@@ -155,13 +160,13 @@ const Payment = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white p-8">
+        <div className="min-h-screen bg-gray-900 text-white p-4 sm:p-8">
             <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="max-w-4xl mx-auto bg-gray-800/90 backdrop-blur-sm rounded-xl p-8 shadow-2xl border border-gray-700/50"
+                className="max-w-4xl mx-auto bg-gray-800/90 backdrop-blur-sm rounded-xl p-4 sm:p-8 shadow-2xl border border-gray-700/50"
             >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
                     <div>
                         <motion.img 
                             initial={{ opacity: 0 }}
@@ -169,55 +174,55 @@ const Payment = () => {
                             transition={{ duration: 0.5 }}
                             src={event.image} 
                             alt={event.title} 
-                            className="w-full h-64 object-cover rounded-xl shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300" 
+                            className="w-full h-48 sm:h-64 object-cover rounded-xl shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300" 
                         />
-                        <div className="space-y-4 mt-6">
-                            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">{event.title}</h2>
-                            <div className="flex items-center text-gray-300">
-                                <MapPin className="w-5 h-5 mr-2 text-purple-500" />
+                        <div className="space-y-3 sm:space-y-4 mt-4 sm:mt-6">
+                            <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">{event.title}</h2>
+                            <div className="flex items-center text-gray-300 text-sm sm:text-base">
+                                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-purple-500" />
                                 <span>{event.location}</span>
                             </div>
-                            <div className="flex items-center text-gray-300">
-                                <Calendar className="w-5 h-5 mr-2 text-purple-500" />
+                            <div className="flex items-center text-gray-300 text-sm sm:text-base">
+                                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-purple-500" />
                                 <span>{new Date(event.date).toLocaleDateString()}</span>
                             </div>
-                            <div className="flex items-center text-gray-300">
-                                <Clock className="w-5 h-5 mr-2 text-purple-500" />
+                            <div className="flex items-center text-gray-300 text-sm sm:text-base">
+                                <Clock className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-purple-500" />
                                 <span>{event.time}</span>
                             </div>
-                            <div className="flex items-center text-gray-300">
-                                <Ticket className="w-5 h-5 mr-2 text-purple-500" />
+                            <div className="flex items-center text-gray-300 text-sm sm:text-base">
+                                <Ticket className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-purple-500" />
                                 <span>Available Seats: {event.available_tickets}</span>
                             </div>
                         </div>
                     </div>
 
-                    <div className="space-y-6">
-                        <div className="bg-gray-700/50 backdrop-blur-sm p-6 rounded-xl border border-gray-600/50">
+                    <div className="space-y-4 sm:space-y-6">
+                        <div className="bg-gray-700/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-gray-600/50">
                             <div className="flex justify-between items-center mb-4">
-                                <span className="text-gray-300">Price per ticket</span>
-                                <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">₹{event.ticket_price}</span>
+                                <span className="text-gray-300 text-sm sm:text-base">Price per ticket</span>
+                                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">₹{event.ticket_price}</span>
                             </div>
-                            <div className="flex items-center justify-between mb-6">
-                                <span className="text-gray-300">Number of tickets</span>
-                                <div className="flex items-center space-x-4">
+                            <div className="flex items-center justify-between mb-4 sm:mb-6">
+                                <span className="text-gray-300 text-sm sm:text-base">Number of tickets</span>
+                                <div className="flex items-center space-x-3 sm:space-x-4">
                                     <motion.button 
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
                                         onClick={() => setTickets(Math.max(1, tickets - 1))}
-                                        className="bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-lg transition-colors"
+                                        className="bg-purple-600 hover:bg-purple-700 px-2 sm:px-3 py-1 rounded-lg transition-colors text-sm sm:text-base"
                                     >-</motion.button>
-                                    <span className="font-semibold text-lg">{tickets}</span>
+                                    <span className="font-semibold text-base sm:text-lg">{tickets}</span>
                                     <motion.button 
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
                                         onClick={() => setTickets(Math.min(Math.min(10, event.available_tickets), tickets + 1))}
-                                        className="bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-lg transition-colors"
+                                        className="bg-purple-600 hover:bg-purple-700 px-2 sm:px-3 py-1 rounded-lg transition-colors text-sm sm:text-base"
                                     >+</motion.button>
                                 </div>
                             </div>
                             <div className="border-t border-gray-600 pt-4">
-                                <div className="flex justify-between items-center text-xl">
+                                <div className="flex justify-between items-center text-lg sm:text-xl">
                                     <span>Total Amount</span>
                                     <span className="font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">₹{(tickets * parseFloat(event.ticket_price)).toFixed(2)}</span>
                                 </div>
@@ -225,13 +230,13 @@ const Payment = () => {
                         </div>
 
                         {event.available_tickets < 10 && (
-                            <div className="flex items-center justify-center space-x-2 text-amber-400">
+                            <div className="flex items-center justify-center space-x-2 text-amber-400 text-sm">
                                 <AlertCircle className="w-4 h-4" />
                                 <span>Only {event.available_tickets} tickets left!</span>
                             </div>
                         )}
 
-                        <div className="flex items-center justify-center space-x-2 text-sm text-gray-400">
+                        <div className="flex items-center justify-center space-x-2 text-xs sm:text-sm text-gray-400">
                             <Lock className="w-4 h-4" />
                             <span>Secured by Cashfree Payments</span>
                             <Shield className="w-4 h-4" />
@@ -241,10 +246,12 @@ const Payment = () => {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={handlePayment}
-                            disabled={processing || bookingSuccess}
-                            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 transition-all duration-300"
+                            disabled={processing || bookingSuccess || event.available_tickets <= 0}
+                            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 sm:py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 transition-all duration-300 text-sm sm:text-base"
                         >
-                            {processing ? 'Processing...' : bookingSuccess ? 'Booking Confirmed! ✨' : 'Make Payment'}
+                            {processing ? 'Processing...' : 
+                             bookingSuccess ? 'Booking Confirmed! ✨' : 
+                             event.available_tickets <= 0 ? 'Sold Out' : 'Make Payment'}
                         </motion.button>
 
                         {showSimulate && !bookingSuccess && (
@@ -253,7 +260,7 @@ const Payment = () => {
                                 whileTap={{ scale: 0.98 }}
                                 onClick={simulateSuccess}
                                 disabled={processing}
-                                className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 transition-all duration-300 mt-4"
+                                className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-3 sm:py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 transition-all duration-300 mt-4 text-sm sm:text-base"
                             >
                                 Simulate Payment Success
                             </motion.button>

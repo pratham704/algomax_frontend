@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { baseUrl } from '../../../api/baseUrl'
-import { Ticket, Calendar, Users, Loader, AlertCircle, Clock, ArrowRight, Tag, CreditCard, QrCode, X } from 'lucide-react'
+import { Ticket, Calendar, Users, Loader, AlertCircle, Clock, ArrowRight, Tag, CreditCard, QrCode, X, Zap, History } from 'lucide-react'
 
 const MyTickets = () => {
   const navigate = useNavigate();
@@ -23,7 +23,11 @@ const MyTickets = () => {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       });
-      setTickets(response.data.data.bookings);
+      // Sort tickets by created_at date in descending order (most recent first)
+      const sortedTickets = response.data.data.bookings.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+      setTickets(sortedTickets);
       setLoading(false);
     } catch (err) {
       setError(err);
@@ -59,8 +63,21 @@ const MyTickets = () => {
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tickets && tickets.map((ticket) => (
-          <div key={ticket.id} className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-700 relative overflow-hidden">
+        {tickets && tickets.map((ticket, index) => (
+          <div key={ticket.id} className={`bg-gradient-to-br ${index === 0 ? 'from-blue-900 to-purple-900 ring-2 ring-blue-500/50' : 'from-gray-800 to-gray-900'} rounded-xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-700 relative overflow-hidden`}>
+            {index === 0 && (
+              <div className="absolute top-4 right-4 flex space-x-2">
+                <div className="flex items-center bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">
+                  <Zap className="w-4 h-4 mr-1" />
+                  Hot
+                </div>
+                <div className="flex items-center bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">
+                  <History className="w-4 h-4 mr-1" />
+                  Recent
+                </div>
+              </div>
+            )}
+            
             <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-bl-full" />
             
             <div className="flex items-center justify-between mb-6">
